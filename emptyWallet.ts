@@ -1,5 +1,5 @@
 import { Transaction, SystemProgram, Connection, Keypair, sendAndConfirmTransaction, PublicKey } from "@solana/web3.js";
-import wallet from "./dev-wallet.json";
+import wallet from "./Turbin3-wallet.json";
 
 // Recreate the keypair from the secret key
 const from = Keypair.fromSecretKey(new Uint8Array(wallet));

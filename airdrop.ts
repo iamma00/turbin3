@@ -1,5 +1,5 @@
 import { Connection, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import wallet from "./dev-wallet.json";
+import wallet from "./Turbin3-wallet.json";
 
 // Recreate keypair from secret key
 const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));

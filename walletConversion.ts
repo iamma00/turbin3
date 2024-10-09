@@ -1,30 +1,38 @@
-import bs58 from 'bs58';
-import * as prompt from 'prompt-sync';
-
-const input = prompt();
-
-// Convert base58 to Solana wallet format (byte array)
-function base58ToWallet() {
-  const base58Key = input('Enter your base58 encoded private key: ');
-  const wallet = bs58.decode(base58Key);
-  console.log('Your wallet in Solana byte array format:', wallet);
-}
-
-// Convert Solana wallet format (byte array) to base58
-function walletToBase58() {
-  const walletArrayStr = input('Enter your wallet as a byte array (comma-separated numbers): ');
-  const walletArray = walletArrayStr.split(',').map(Number);
-  const base58Key = bs58.encode(new Uint8Array(walletArray));
-  console.log('Your wallet in base58 encoded format:', base58Key);
-}
-
-// Prompt user for operation
-const choice = input('Choose operation: [1] base58 to wallet, [2] wallet to base58: ');
-
-if (choice === '1') {
-  base58ToWallet();
-} else if (choice === '2') {
-  walletToBase58();
-} else {
-  console.log('Invalid choice!');
-}
+import { Connection, Keypair, PublicKey } from "@solana/web3.js"
+import { Program, Wallet, AnchorProvider } from "@coral-xyz/anchor"
+import { IDL, Turbin3Prereq } from "./programs/Turbin3_prereq";
+import wallet from "./Turbin3-wallet.json"
+// We're going to import our keypair from the wallet file
+const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
+// Create a devnet connection
+const connection = new Connection("https://api.devnet.solana.com");
+// Github account
+const github = Buffer.from("<your github account>", "utf8");
+// Create our anchor provider
+const provider = new AnchorProvider(connection, new Wallet(keypair), {
+  commitment: "confirmed"});
+  // Create our program
+const program : Program<Turbin3Prereq> = new Program(IDL, provider);
+// Create the PDA for our enrollment account
+const enrollment_seeds = [Buffer.from("prereq"),
+  keypair.publicKey.toBuffer()];
+  const [enrollment_key, _bump] =
+  PublicKey.findProgramAddressSync(enrollment_seeds, program.programId);
+  // Execute our enrollment transaction
+(async () => {
+  try {
+  const txhash = await program.methods
+  .complete(github)
+  .accounts({
+  signer: keypair.publicKey,
+  })
+  .signers([
+  keypair
+  ]).rpc();
+  console.log(`Success! Check out your TX here:
+  https://explorer.solana.com/tx/${txhash}?cluster=devnet`);
+  } catch(e) {
+  console.error(`Oops, something went wrong: ${e}`)
+  }
+  })();
+  

@@ -269,7 +269,7 @@ bs58@^4.0.0, bs58@^4.0.1:
 
 bs58@^6.0.0:
   version "6.0.0"
-  resolved "https://registry.npmjs.org/bs58/-/bs58-6.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/bs58/-/bs58-6.0.0.tgz#a2cda0130558535dd281a2f8697df79caaf425d8"
   integrity sha512-PD0wEnEYg6ijszw/u8s+iI3H17cTymlrwkKhDhPZq+Sokl3AU4htyBFTjAeNAlCCmg0f53g6ih3jATyCKftTfw==
   dependencies:
     base-x "^5.0.0"
@@ -465,7 +465,7 @@ pako@^2.0.3:
 
 prompt-sync@^4.2.0:
   version "4.2.0"
-  resolved "https://registry.npmjs.org/prompt-sync/-/prompt-sync-4.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/prompt-sync/-/prompt-sync-4.2.0.tgz#0198f73c5b70e3b03e4b9033a50540a7c9a1d7f4"
   integrity sha512-BuEzzc5zptP5LsgV5MZETjDaKSWfchl5U9Luiu8SKp7iZWD5tZalOxvNcZRwv+d2phNFr8xlbxmFNcRKfJOzJw==
   dependencies:
     strip-ansi "^5.0.0"
